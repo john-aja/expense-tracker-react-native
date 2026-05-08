@@ -17,6 +17,7 @@ import { useAuthStore } from '@store/authStore';
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from '@constants/index';
 import { v4 as uuidv4 } from 'uuid';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
+import { webSafeAnimation } from '../utils/animations';
 
 interface AddTransactionModalProps {
   visible: boolean;
@@ -120,7 +121,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ visible, onCl
             showsVerticalScrollIndicator={false}
           >
             {/* Type Selection */}
-            <Animated.View entering={FadeInDown.delay(100).springify()}>
+            <Animated.View entering={webSafeAnimation(FadeInDown.delay(100).springify())}>
               <Text style={styles.label}>Transaction Type</Text>
               <View style={styles.typeContainer}>
                 <TouchableOpacity
@@ -166,7 +167,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ visible, onCl
             </Animated.View>
 
             {/* Amount Input */}
-            <Animated.View entering={FadeInDown.delay(200).springify()}>
+            <Animated.View entering={webSafeAnimation(FadeInDown.delay(200).springify())}>
               <Input
                 label="Amount"
                 placeholder="0.00"
@@ -179,7 +180,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ visible, onCl
             </Animated.View>
 
             {/* Category Selection */}
-            <Animated.View entering={FadeInDown.delay(300).springify()}>
+            <Animated.View entering={webSafeAnimation(FadeInDown.delay(300).springify())}>
               <Text style={styles.label}>Category {errors.category && <Text style={styles.required}>*</Text>}</Text>
               <View style={styles.categoryGrid}>
                 {categories.map((cat) => (
@@ -200,7 +201,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ visible, onCl
             </Animated.View>
 
             {/* Description */}
-            <Animated.View entering={FadeInDown.delay(400).springify()}>
+            <Animated.View entering={webSafeAnimation(FadeInDown.delay(400).springify())}>
               <Input
                 label="Description"
                 placeholder="What did you spend on?"
@@ -212,7 +213,7 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ visible, onCl
             </Animated.View>
 
             {/* Date */}
-            <Animated.View entering={FadeInDown.delay(500).springify()}>
+            <Animated.View entering={webSafeAnimation(FadeInDown.delay(500).springify())}>
               <Input
                 label="Date"
                 placeholder="YYYY-MM-DD"
@@ -225,13 +226,13 @@ const AddTransactionModal: React.FC<AddTransactionModalProps> = ({ visible, onCl
 
             {/* Error Message */}
             {errors.submit && (
-              <Animated.View entering={FadeInUp.springify()}>
+              <Animated.View entering={webSafeAnimation(FadeInUp.springify())}>
                 <Text style={styles.errorMessage}>{errors.submit}</Text>
               </Animated.View>
             )}
 
             {/* Submit Button */}
-            <Animated.View entering={FadeInUp.delay(600).springify()}>
+            <Animated.View entering={webSafeAnimation(FadeInUp.delay(600).springify())}>
               <Button
                 title="Add Transaction"
                 onPress={handleAddTransaction}

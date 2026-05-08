@@ -8,6 +8,7 @@ export const colors = {
   primary: '#6366F1', // Indigo
   primaryLight: '#818CF8',
   primaryDark: '#4F46E5',
+  warning: '#F59E0B',
 
   // Secondary
   secondary: '#EC4899', // Pink

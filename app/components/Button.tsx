@@ -1,19 +1,32 @@
-import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle, GestureResponderEvent } from 'react-native';
+import React from "react";
+import {
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  ViewStyle,
+  TextStyle,
+  GestureResponderEvent,
+} from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
   interpolate,
   Extrapolate,
-} from 'react-native-reanimated';
-import { colors, spacing, typography, borderRadius, shadows } from '@constants/theme';
+} from "react-native-reanimated";
+import {
+  colors,
+  spacing,
+  typography,
+  borderRadius,
+  shadows,
+} from "@constants/theme";
 
 interface ButtonProps {
   title: string;
   onPress: (event: GestureResponderEvent) => void;
-  variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'outline';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: "primary" | "secondary" | "success" | "danger" | "outline";
+  size?: "sm" | "md" | "lg";
   disabled?: boolean;
   loading?: boolean;
   fullWidth?: boolean;
@@ -30,15 +43,15 @@ export const Button = React.forwardRef<TouchableOpacity, ButtonProps>(
     {
       title,
       onPress,
-      variant = 'primary',
-      size = 'md',
+      variant = "primary",
+      size = "md",
       disabled = false,
       loading = false,
       fullWidth = false,
       icon,
       style,
     },
-    ref
+    ref,
   ) => {
     const scale = useSharedValue(1);
 
@@ -54,11 +67,11 @@ export const Button = React.forwardRef<TouchableOpacity, ButtonProps>(
       transform: [{ scale: scale.value }],
     }));
 
-    const getButtonStyle = () => {
+    const getButtonStyle = (): (ViewStyle | undefined)[] => {
       const baseStyle: ViewStyle = {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
         borderRadius: borderRadius.lg,
         ...shadows.md,
       };
@@ -79,20 +92,12 @@ export const Button = React.forwardRef<TouchableOpacity, ButtonProps>(
       };
 
       const variants: Record<string, ViewStyle> = {
-        primary: {
-          backgroundColor: colors.primary,
-        },
-        secondary: {
-          backgroundColor: colors.secondary,
-        },
-        success: {
-          backgroundColor: colors.success,
-        },
-        danger: {
-          backgroundColor: colors.danger,
-        },
+        primary: { backgroundColor: colors.primary },
+        secondary: { backgroundColor: colors.secondary },
+        success: { backgroundColor: colors.success },
+        danger: { backgroundColor: colors.danger },
         outline: {
-          backgroundColor: 'transparent',
+          backgroundColor: "transparent",
           borderWidth: 2,
           borderColor: colors.primary,
         },
@@ -102,8 +107,8 @@ export const Button = React.forwardRef<TouchableOpacity, ButtonProps>(
         baseStyle,
         sizes[size],
         variants[variant],
-        fullWidth && { width: '100%' },
-        disabled && { opacity: 0.5 },
+        fullWidth ? { width: "100%" } : undefined,
+        disabled ? { opacity: 0.5 } : undefined,
       ];
     };
 
@@ -125,7 +130,9 @@ export const Button = React.forwardRef<TouchableOpacity, ButtonProps>(
     };
 
     return (
-      <Animated.View style={[animatedStyle, { width: fullWidth ? '100%' : 'auto' }]}>
+      <Animated.View
+        style={[animatedStyle, { width: fullWidth ? "100%" : undefined }]}
+      >
         <TouchableOpacity
           ref={ref}
           style={[getButtonStyle(), style]}
@@ -136,13 +143,13 @@ export const Button = React.forwardRef<TouchableOpacity, ButtonProps>(
           activeOpacity={0.7}
         >
           {icon}
-          <Text style={getTextStyle()}>{loading ? 'Loading...' : title}</Text>
+          <Text style={getTextStyle()}>{loading ? "Loading..." : title}</Text>
         </TouchableOpacity>
       </Animated.View>
     );
-  }
+  },
 );
 
-Button.displayName = 'Button';
+Button.displayName = "Button";
 
 const styles = StyleSheet.create({});

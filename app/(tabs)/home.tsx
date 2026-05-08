@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,8 +8,8 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Modal,
-} from 'react-native';
-import { useRouter } from 'expo-router';
+} from "react-native";
+import { useRouter } from "expo-router";
 import Animated, {
   FadeInDown,
   FadeInUp,
@@ -17,13 +17,20 @@ import Animated, {
   useAnimatedScrollHandler,
   useSharedValue,
   useAnimatedStyle,
-} from 'react-native-reanimated';
-import { colors, spacing, typography, borderRadius, shadows } from '@constants/theme';
-import { Card, TransactionCard, FAB } from '@components/index';
-import { useTransactionStore } from '@store/transactionStore';
-import { useAuthStore } from '@store/authStore';
-import { formatCurrency, calculateSavingsPercentage } from '@utils/formatters';
-import AddTransactionModal from './add-transaction';
+} from "react-native-reanimated";
+import {
+  colors,
+  spacing,
+  typography,
+  borderRadius,
+  shadows,
+} from "@constants/theme";
+import { Card, TransactionCard, FAB } from "@components/index";
+import { useTransactionStore } from "@store/transactionStore";
+import { useAuthStore } from "@store/authStore";
+import { formatCurrency, calculateSavingsPercentage } from "@utils/formatters";
+import AddTransactionModal from "./add-transaction";
+import { webSafeAnimation } from "../utils/animations";
 
 /**
  * Home Screen
@@ -69,31 +76,37 @@ export default function HomeScreen() {
         showsVerticalScrollIndicator={false}
       >
         {/* Header */}
-        <Animated.View entering={FadeInDown.delay(100).springify()}>
+        <Animated.View entering={webSafeAnimation(FadeInDown.delay(100).springify())}>
           <View style={styles.header}>
             <View>
-              <Text style={styles.greeting}>Hi, {user?.fullName.split(' ')[0]}! 👋</Text>
+              <Text style={styles.greeting}>
+                Hi, {user?.fullName.split(" ")[0]}! 👋
+              </Text>
               <Text style={styles.subtitle}>Let's manage your money</Text>
             </View>
           </View>
         </Animated.View>
 
         {/* Balance Card */}
-        <Animated.View entering={FadeInDown.delay(200).springify()}>
+        <Animated.View entering={webSafeAnimation(FadeInDown.delay(200).springify())}>
           <Card variant="gradient" style={styles.balanceCard}>
             <Text style={styles.balanceLabel}>Total Balance</Text>
             <Text style={styles.balanceAmount}>{formatCurrency(balance)}</Text>
             <View style={styles.balanceFooter}>
               <View style={styles.balanceItem}>
                 <Text style={styles.balanceItemLabel}>Income</Text>
-                <Text style={[styles.balanceItemAmount, { color: colors.success }]}>
+                <Text
+                  style={[styles.balanceItemAmount, { color: colors.success }]}
+                >
                   +{formatCurrency(getTotalIncome())}
                 </Text>
               </View>
               <View style={styles.divider} />
               <View style={styles.balanceItem}>
                 <Text style={styles.balanceItemLabel}>Expense</Text>
-                <Text style={[styles.balanceItemAmount, { color: colors.danger }]}>
+                <Text
+                  style={[styles.balanceItemAmount, { color: colors.danger }]}
+                >
                   -{formatCurrency(getTotalExpense())}
                 </Text>
               </View>
@@ -102,7 +115,7 @@ export default function HomeScreen() {
         </Animated.View>
 
         {/* Monthly Summary */}
-        <Animated.View entering={FadeInDown.delay(300).springify()}>
+        <Animated.View entering={webSafeAnimation(FadeInDown.delay(300).springify())}>
           <View style={styles.summaryGrid}>
             <Card style={styles.summaryCard}>
               <View style={styles.summaryContent}>
@@ -125,21 +138,26 @@ export default function HomeScreen() {
         </Animated.View>
 
         {/* Savings Rate */}
-        <Animated.View entering={FadeInDown.delay(400).springify()}>
+        <Animated.View entering={webSafeAnimation(FadeInDown.delay(400).springify())}>
           <Card style={styles.savingsCard}>
             <View style={styles.savingsContent}>
               <View>
                 <Text style={styles.savingsLabel}>Savings Rate</Text>
-                <Text style={styles.savingsPercentage}>{Math.round(savingsRate)}%</Text>
+                <Text style={styles.savingsPercentage}>
+                  {Math.round(savingsRate)}%
+                </Text>
               </View>
               <View
                 style={[
                   styles.savingsIndicator,
-                  { backgroundColor: savingsRate > 30 ? colors.success : colors.warning },
+                  {
+                    backgroundColor:
+                      savingsRate > 30 ? colors.success : colors.warning,
+                  },
                 ]}
               >
                 <Text style={styles.savingsIndicatorText}>
-                  {savingsRate > 30 ? '✓' : '⚠'}
+                  {savingsRate > 30 ? "✓" : "⚠"}
                 </Text>
               </View>
             </View>
@@ -147,11 +165,11 @@ export default function HomeScreen() {
         </Animated.View>
 
         {/* Recent Transactions */}
-        <Animated.View entering={FadeInUp.delay(500).springify()}>
+        <Animated.View entering={webSafeAnimation(FadeInUp.delay(500).springify())}>
           <View style={styles.transactionsSection}>
             <View style={styles.sectionHeader}>
               <Text style={styles.sectionTitle}>Recent Transactions</Text>
-              <TouchableOpacity onPress={() => router.push('/analytics')}>
+              <TouchableOpacity onPress={() => router.push("/analytics")}>
                 <Text style={styles.viewAll}>View All →</Text>
               </TouchableOpacity>
             </View>
@@ -168,7 +186,9 @@ export default function HomeScreen() {
               </View>
             ) : (
               <Card style={styles.emptyCard}>
-                <Text style={styles.emptyText}>No transactions yet. Add one to get started!</Text>
+                <Text style={styles.emptyText}>
+                  No transactions yet. Add one to get started!
+                </Text>
               </Card>
             )}
           </View>
@@ -202,9 +222,9 @@ const styles = StyleSheet.create({
     paddingBottom: spacing.xxxl,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: spacing.xxl,
   },
   greeting: {
@@ -233,16 +253,16 @@ const styles = StyleSheet.create({
     marginBottom: spacing.lg,
   },
   balanceFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
     paddingTop: spacing.lg,
     borderTopWidth: 1,
     borderTopColor: colors.grayLight,
   },
   balanceItem: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
   },
   balanceItemLabel: {
     fontSize: typography.fontSize.sm,
@@ -259,7 +279,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.grayLight,
   },
   summaryGrid: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: spacing.md,
     marginBottom: spacing.lg,
   },
@@ -267,7 +287,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   summaryContent: {
-    alignItems: 'flex-start',
+    alignItems: "flex-start",
   },
   summaryLabel: {
     fontSize: typography.fontSize.sm,
@@ -282,9 +302,9 @@ const styles = StyleSheet.create({
     marginBottom: spacing.xl,
   },
   savingsContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   savingsLabel: {
     fontSize: typography.fontSize.md,
@@ -300,20 +320,20 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   savingsIndicatorText: {
     fontSize: 24,
   },
-  warning: colors.danger,
+  // warning: colors.danger,
   transactionsSection: {
     marginBottom: spacing.lg,
   },
   sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: spacing.lg,
   },
   sectionTitle: {
@@ -327,20 +347,20 @@ const styles = StyleSheet.create({
     fontWeight: typography.fontWeight.semibold,
   },
   emptyCard: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: spacing.xxl,
   },
   emptyText: {
     fontSize: typography.fontSize.md,
     color: colors.textSecondary,
-    textAlign: 'center',
+    textAlign: "center",
   },
   fabContainer: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     right: 0,
-    width: '100%',
+    width: "100%",
     height: 100,
   },
   fabIcon: {

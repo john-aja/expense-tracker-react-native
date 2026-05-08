@@ -1,6 +1,13 @@
-import React from 'react';
-import { View, TextInput, StyleSheet, TextInputProps, ViewStyle, Text } from 'react-native';
-import { colors, spacing, typography, borderRadius } from '@constants/theme';
+import React from "react";
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  TextInputProps,
+  ViewStyle,
+  Text,
+} from "react-native";
+import { colors, spacing, typography, borderRadius } from "@constants/theme";
 
 interface InputProps extends TextInputProps {
   label?: string;
@@ -25,7 +32,7 @@ export const Input = React.forwardRef<TextInput, InputProps>(
       placeholderTextColor,
       ...props
     },
-    ref
+    ref,
   ) => {
     return (
       <View style={[styles.container, containerStyle]}>
@@ -36,18 +43,12 @@ export const Input = React.forwardRef<TextInput, InputProps>(
           </Text>
         )}
         <View
-          style={[
-            styles.inputWrapper,
-            error && styles.inputError,
-          ]}
+          style={[styles.inputWrapper, !!error ? styles.inputError : undefined]}
         >
           {icon && <View style={styles.iconContainer}>{icon}</View>}
           <TextInput
             ref={ref}
-            style={[
-              styles.input,
-              icon && styles.inputWithIcon,
-            ]}
+            style={[styles.input, icon ? styles.inputWithIcon : undefined]}
             placeholderTextColor={placeholderTextColor || colors.textTertiary}
             {...props}
           />
@@ -55,10 +56,10 @@ export const Input = React.forwardRef<TextInput, InputProps>(
         {error && <Text style={styles.errorText}>{error}</Text>}
       </View>
     );
-  }
+  },
 );
 
-Input.displayName = 'Input';
+Input.displayName = "Input";
 
 const styles = StyleSheet.create({
   container: {
@@ -74,8 +75,8 @@ const styles = StyleSheet.create({
     color: colors.danger,
   },
   inputWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     backgroundColor: colors.surfaceLight,
     borderRadius: borderRadius.lg,
     borderWidth: 2,
@@ -93,8 +94,8 @@ const styles = StyleSheet.create({
     marginLeft: spacing.sm,
   },
   iconContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   inputError: {
     borderColor: colors.danger,

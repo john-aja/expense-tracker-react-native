@@ -1,18 +1,26 @@
-import React from 'react';
-import { View, StyleSheet, ViewStyle, GestureResponderEvent, TouchableOpacity } from 'react-native';
+import React from "react";
+import {
+  View,
+  StyleSheet,
+  ViewStyle,
+  GestureResponderEvent,
+  TouchableOpacity,
+  StyleProp,
+} from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
   FadeInDown,
-} from 'react-native-reanimated';
-import { colors, spacing, borderRadius, shadows } from '@constants/theme';
+} from "react-native-reanimated";
+import { colors, spacing, borderRadius, shadows } from "@constants/theme";
+import { webSafeAnimation } from "../utils/animations";
 
 interface CardProps {
   children: React.ReactNode;
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   onPress?: (event: GestureResponderEvent) => void;
-  variant?: 'default' | 'gradient' | 'elevated';
+  variant?: "default" | "gradient" | "elevated";
   animated?: boolean;
   delay?: number;
 }
@@ -27,11 +35,11 @@ export const Card = React.forwardRef<View, CardProps>(
       children,
       style,
       onPress,
-      variant = 'default',
+      variant = "default",
       animated = true,
       delay = 0,
     },
-    ref
+    ref,
   ) => {
     const scale = useSharedValue(1);
 
@@ -81,10 +89,10 @@ export const Card = React.forwardRef<View, CardProps>(
         style={[
           styles.card,
           getVariantStyle(),
-          onPress && animatedStyle,
+          onPress ? animatedStyle : undefined,
           style,
         ]}
-        entering={animated ? FadeInDown.delay(delay).springify() : undefined}
+        entering={webSafeAnimation(animated ? FadeInDown.delay(delay).springify() : undefined)}
       >
         {children}
       </Animated.View>
@@ -104,10 +112,10 @@ export const Card = React.forwardRef<View, CardProps>(
     }
 
     return cardContent;
-  }
+  },
 );
 
-Card.displayName = 'Card';
+Card.displayName = "Card";
 
 const styles = StyleSheet.create({
   card: {

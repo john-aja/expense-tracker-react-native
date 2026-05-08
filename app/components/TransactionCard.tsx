@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, GestureResponderEvent } from 'react-native';
 import Animated, { FadeInRight, ZoomIn } from 'react-native-reanimated';
-import { Transaction } from '@types/index';
+import { Transaction } from '../types/index';
 import { Card } from './Card';
 import { colors, spacing, typography } from '@constants/theme';
 import { formatCurrency, formatDate } from '@utils/formatters';
 import { EXPENSE_CATEGORIES, INCOME_CATEGORIES } from '@constants/index';
+import { webSafeAnimation } from '../utils/animations';
 
 interface TransactionCardProps {
   transaction: Transaction;
@@ -32,7 +33,7 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({
   const amountSign = isIncome ? '+' : '-';
 
   return (
-    <Animated.View entering={FadeInRight.delay(delay).springify()}>
+    <Animated.View entering={webSafeAnimation(FadeInRight.delay(delay).springify())}>
       <Card onPress={onPress}>
         <View style={styles.container}>
           <View style={styles.iconContainer}>

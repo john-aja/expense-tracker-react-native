@@ -5,7 +5,6 @@ import Animated, {
   useAnimatedStyle,
   withSpring,
   interpolate,
-  Extrapolate,
 } from 'react-native-reanimated';
 import { colors, spacing, shadows } from '@constants/theme';
 

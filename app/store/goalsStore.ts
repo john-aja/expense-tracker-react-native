@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Goal, Badge } from '@types/index';
+import { Goal, Badge } from '../types/index';
 import { BADGES } from '@constants/index';
 
 interface GoalsStore {

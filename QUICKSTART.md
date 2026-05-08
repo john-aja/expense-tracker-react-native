@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
 ```typescript
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
-<Animated.View entering={FadeInDown.delay(100).springify()}>
+<Animated.View entering={webSafeAnimation(FadeInDown.delay(100).springify())}>
   {/* Your content */}
 </Animated.View>
 ```

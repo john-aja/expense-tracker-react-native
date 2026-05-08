@@ -12,6 +12,7 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 import { colors, spacing, typography, borderRadius } from '@constants/theme';
 import { Card, Button } from '@components/index';
 import { useAuthStore } from '@store/authStore';
+import { webSafeAnimation } from '../utils/animations';
 
 /**
  * Profile Screen
@@ -37,7 +38,7 @@ export default function ProfileScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Animated.View entering={FadeInDown.delay(100).springify()} style={styles.content}>
+      <Animated.View entering={webSafeAnimation(FadeInDown.delay(100).springify())} style={styles.content}>
         <View style={styles.header}>
           <Text style={styles.title}>Profile</Text>
         </View>

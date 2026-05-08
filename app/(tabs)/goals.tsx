@@ -12,6 +12,7 @@ import { colors, spacing, typography, borderRadius, shadows } from '@constants/t
 import { Card, ProgressBar } from '@components/index';
 import { useGoalsStore } from '@store/goalsStore';
 import { BADGES } from '@constants/index';
+import { webSafeAnimation } from '../utils/animations';
 
 /**
  * Goals Screen
@@ -24,7 +25,7 @@ export default function GoalsScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Animated.View entering={FadeInDown.delay(100).springify()} style={styles.content}>
+      <Animated.View entering={webSafeAnimation(FadeInDown.delay(100).springify())} style={styles.content}>
         <View style={styles.header}>
           <Text style={styles.title}>Goals & Achievements</Text>
           <Text style={styles.subtitle}>Unlock badges and build financial habits</Text>
@@ -55,7 +56,7 @@ export default function GoalsScreen() {
               {unlockedBadges.map((badge, index) => (
                 <Animated.View
                   key={badge.id}
-                  entering={ZoomIn.delay(index * 100).springify()}
+                  entering={webSafeAnimation(ZoomIn.delay(index * 100).springify())}
                   style={styles.badgeItem}
                 >
                   <Card variant="elevated" style={styles.badgeCard}>
@@ -79,7 +80,7 @@ export default function GoalsScreen() {
               .map((badge, index) => (
                 <Animated.View
                   key={badge.id}
-                  entering={FadeInDown.delay(index * 100).springify()}
+                  entering={webSafeAnimation(FadeInDown.delay(index * 100).springify())}
                   style={styles.badgeItem}
                 >
                   <Card variant="elevated" style={[styles.badgeCard, styles.lockedCard]}>

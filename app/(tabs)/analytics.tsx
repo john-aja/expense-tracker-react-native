@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { colors, spacing, typography } from '@constants/theme';
 import { Card } from '@components/index';
+import { webSafeAnimation } from '../utils/animations';
 
 /**
  * Analytics Screen
@@ -11,7 +12,7 @@ import { Card } from '@components/index';
 export default function AnalyticsScreen() {
   return (
     <SafeAreaView style={styles.container}>
-      <Animated.View entering={FadeInDown.delay(100).springify()} style={styles.content}>
+      <Animated.View entering={webSafeAnimation(FadeInDown.delay(100).springify())} style={styles.content}>
         <View style={styles.header}>
           <Text style={styles.title}>Analytics</Text>
           <Text style={styles.subtitle}>View your spending trends</Text>

@@ -14,6 +14,7 @@ import { Button, Input } from '@components/index';
 import { colors, spacing, typography, borderRadius } from '@constants/theme';
 import { isValidEmail } from '@utils/formatters';
 import { useAuthStore } from '@store/authStore';
+import { webSafeAnimation } from '../utils/animations';
 
 /**
  * Login Screen
@@ -85,7 +86,7 @@ export default function LoginScreen() {
         showsVerticalScrollIndicator={false}
       >
         {/* Header */}
-        <Animated.View entering={FadeInDown.delay(100).springify()}>
+        <Animated.View entering={webSafeAnimation(FadeInDown.delay(100).springify())}>
           <View style={styles.header}>
             <Text style={styles.title}>Welcome Back!</Text>
             <Text style={styles.subtitle}>Track your finances with ease</Text>
@@ -93,7 +94,7 @@ export default function LoginScreen() {
         </Animated.View>
 
         {/* Form */}
-        <Animated.View entering={FadeInDown.delay(200).springify()}>
+        <Animated.View entering={webSafeAnimation(FadeInDown.delay(200).springify())}>
           <View style={styles.form}>
             <Input
               label="Email"
@@ -133,14 +134,14 @@ export default function LoginScreen() {
         </Animated.View>
 
         {/* Forgot Password */}
-        <Animated.View entering={FadeInUp.delay(300).springify()}>
+        <Animated.View entering={webSafeAnimation(FadeInUp.delay(300).springify())}>
           <TouchableOpacity style={styles.forgotContainer}>
             <Text style={styles.forgotText}>Forgot Password?</Text>
           </TouchableOpacity>
         </Animated.View>
 
         {/* Register Link */}
-        <Animated.View entering={FadeInUp.delay(400).springify()}>
+        <Animated.View entering={webSafeAnimation(FadeInUp.delay(400).springify())}>
           <View style={styles.registerContainer}>
             <Text style={styles.registerText}>Don't have an account? </Text>
             <TouchableOpacity onPress={() => router.push('/(auth)/register')}>

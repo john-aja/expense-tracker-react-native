@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Transaction, TransactionType } from '@types/index';
+import { Transaction, TransactionType } from '../types/index';
 import { DUMMY_TRANSACTIONS } from '@constants/index';
 
 interface TransactionStore {

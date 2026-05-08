@@ -1,68 +1,48 @@
-import React, { useEffect } from 'react';
-import { Stack } from 'expo-router';
-import * as Font from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { colors } from '@constants/theme';
+import React, { useEffect, useState } from "react";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
+import { colors } from "@constants/theme";
+import { View } from "react-native";
 
-// Keep splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
-/**
- * Root Layout Component
- * Sets up navigation structure and initializes app resources
- */
 export default function RootLayout() {
-  const [fontsLoaded, setFontsLoaded] = React.useState(false);
+  const [fontsLoaded, setFontsLoaded] = useState(false);
 
   useEffect(() => {
     async function prepare() {
       try {
-        // Load any custom fonts if needed
-        // await Font.loadAsync({
-        //   'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
-        //   'Poppins-Regular': require('../assets/fonts/Poppins-Regular.ttf'),
-        // });
+        // Load fonts if needed
       } catch (e) {
         console.warn(e);
       } finally {
         setFontsLoaded(true);
-        SplashScreen.hideAsync();
+        await SplashScreen.hideAsync();
       }
     }
 
     prepare();
   }, []);
 
+  // ✅ FIXED: return a View, not null
   if (!fontsLoaded) {
-    return null;
+    return <View style={{ flex: 1, backgroundColor: colors.background }} />;
   }
 
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor={colors.background} />
+      <StatusBar style="light" />
+
       <Stack
         screenOptions={{
           headerShown: false,
           contentStyle: { backgroundColor: colors.background },
-          animationEnabled: true,
+          animation: "slide_from_right",
         }}
       >
-        {/* Auth Stack */}
-        <Stack.Screen
-          name="(auth)"
-          options={{
-            headerShown: false,
-          }}
-        />
-
-        {/* Tabs Stack */}
-        <Stack.Screen
-          name="(tabs)"
-          options={{
-            headerShown: false,
-          }}
-        />
+        <Stack.Screen name="(auth)" />
+        <Stack.Screen name="(tabs)" />
       </Stack>
     </>
   );

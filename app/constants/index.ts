@@ -1,4 +1,4 @@
-import { Category, Badge } from '@types/index';
+import { Category, Badge } from '../types/index';
 import { colors } from './theme';
 
 /**

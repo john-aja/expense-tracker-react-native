@@ -14,6 +14,7 @@ import { Button, Input } from '@components/index';
 import { colors, spacing, typography } from '@constants/theme';
 import { isValidEmail, validatePassword, isValidPhone } from '@utils/formatters';
 import { useAuthStore } from '@store/authStore';
+import { webSafeAnimation } from '../utils/animations';
 
 /**
  * Register Screen
@@ -100,7 +101,7 @@ export default function RegisterScreen() {
         showsVerticalScrollIndicator={false}
       >
         {/* Header */}
-        <Animated.View entering={FadeInDown.delay(100).springify()}>
+        <Animated.View entering={webSafeAnimation(FadeInDown.delay(100).springify())}>
           <View style={styles.header}>
             <Text style={styles.title}>Create Account</Text>
             <Text style={styles.subtitle}>Start tracking your finances today</Text>
@@ -108,7 +109,7 @@ export default function RegisterScreen() {
         </Animated.View>
 
         {/* Form */}
-        <Animated.View entering={FadeInDown.delay(200).springify()}>
+        <Animated.View entering={webSafeAnimation(FadeInDown.delay(200).springify())}>
           <View style={styles.form}>
             <Input
               label="Full Name"
@@ -179,7 +180,7 @@ export default function RegisterScreen() {
         </Animated.View>
 
         {/* Login Link */}
-        <Animated.View entering={FadeInUp.delay(300).springify()}>
+        <Animated.View entering={webSafeAnimation(FadeInUp.delay(300).springify())}>
           <View style={styles.loginContainer}>
             <Text style={styles.loginText}>Already have an account? </Text>
             <TouchableOpacity onPress={() => router.push('/(auth)/login')}>
